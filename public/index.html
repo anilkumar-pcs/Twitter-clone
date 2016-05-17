@@ -1,0 +1,51 @@
+<html>
+    <head>
+    
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+        
+        <link href="css/style.css" rel="stylesheet"/>        
+
+        <!-- Libraries  -->
+        <script src="libs/angular.js"></script>
+        <script src="libs/angular-route.js"></script>
+        <script src="libs/jquery-1.11.2.js"></script>
+        <script src="libs/bootstrap.js"></script>
+        
+        <!-- javascript files -->
+        <script src="app.js"></script>
+        <script src="config.js"></script>
+
+        <!-- controllers -->
+        <script src="views/home/homeController.js"></script>
+        <script src="views/login/loginController.js"></script>
+        <script src="views/register/registerController.js"></script>
+        <script src="views/profile/profileController.js"></script>
+        <script src="views/nav/navController.js"></script>
+        <script src="views/admin/adminController.js"></script>
+
+        <!-- userService for Angular service -->
+        <script src="services/userClient.js"></script>
+
+    </head>
+    <body ng-app="PassportApp">
+        <div class="container">
+            <nav ng-controller="NavCtrl">
+              <a href="#home">Home</a> |
+              <span ng-show="!currentUser">
+                  <a href="#login">Login</a> |
+                  <a href="#register">Register</a>
+              </span>
+              <span ng-show="currentUser">
+                  <a href="#profile">Profile</a> |
+                  <span ng-show="currentUser.roles.indexOf('admin') != -1">
+                  <a href="#admin">Admin</a> |
+                  </span>
+                  <a href="#logout" ng-click="logout()">Logout</a>
+              </span>
+            </nav>
+            <div ng-view>
+            </div>
+        </div>
+    </body>
+</html>
