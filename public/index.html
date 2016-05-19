@@ -2,9 +2,7 @@
     <head>
     
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-        
-        <link href="css/style.css" rel="stylesheet"/>        
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->                     
 
         <!-- Libraries  -->
         <script src="libs/angular.js"></script>
@@ -12,6 +10,9 @@
         <script src="libs/jquery-1.11.2.js"></script>
         <script src="libs/bootstrap.js"></script>
         
+        <!-- style.css -->
+        <link href="css/style.css" rel="stylesheet"/> 
+
         <!-- javascript files -->
         <script src="app.js"></script>
         <script src="config.js"></script>
@@ -31,20 +32,32 @@
     </head>
     <body ng-app="PassportApp">
         <div class="container">
-            <nav ng-controller="NavCtrl">
-              <a href="#home">Home</a> |
-              <span ng-show="!currentUser">
-                  <a href="#login">Login</a> |
-                  <a href="#register">Register</a>
-              </span>
-              <span ng-show="currentUser">
-                  <a href="#profile">Profile</a> |
-                  <span ng-show="currentUser.roles.indexOf('admin') != -1">
-                  <a href="#admin">Admin</a> |
-                  </span>
-                  <a href="#logout" ng-click="logout()">Logout</a>
-              </span>
+
+            <nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavCtrl">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                  </button>
+                  <a class="navbar-brand" href="#home">Twitter-Clone</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav">
+                    <li><a href="#home">Home</a></li>
+                    <li ng-show="currentUser"><a href="#profile">Profile</a></li>
+                    <li ng-show="currentUser && currentUser.roles.indexOf('admin') != -1"><a href="#admin">Admin</a></li>
+                    <li ng-show="currentUser"><a href="#logout" ng-click="logout()">Logout</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right" ng-show="!currentUser">
+                    <li><a href="#register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                  </ul>
+                </div>
+              </div>
             </nav>
+
             <div ng-view>
             </div>
         </div>
