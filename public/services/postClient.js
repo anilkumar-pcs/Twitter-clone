@@ -19,7 +19,7 @@
         }
 
         function findPostsByUser(username){
-            return $http.get("/api/post/user",username);
+            return $http.get("/api/post/"+username);
         }
 
         function createPost(post){

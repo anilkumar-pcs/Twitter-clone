@@ -10,7 +10,7 @@ module.exports = function(app){
 	app.put("/api/post/:id", auth, updatePost);
 	app.delete("/api/post/:id", auth, deletePost);
 	app.get("/api/post", auth, findAllPosts);
-	app.get("/api/post/user", auth, findPostsByUser);
+	app.get("/api/post/:username", auth, findPostsByUser);
 
 	function authorized (req, res, next) {
         if (!req.isAuthenticated()) {
@@ -104,7 +104,7 @@ module.exports = function(app){
 
     function findPostsByUser(req,res){
 
-    	var username = req.username;
+    	var username = req.params.username;
 
     	postModel.findPostsByUser(username)
     	.then(

@@ -30,7 +30,7 @@ module.exports = function(){
 	}
 
 	function findPostsByUser(username){
-		return PostModel.findOne({created_by:username});
+		return PostModel.find({created_by:username});
 	}
 
 	function createPost(post){

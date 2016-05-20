@@ -4,7 +4,7 @@
         .module("PassportApp")
         .controller("HomeController", HomeController);
     
-    function HomeController($scope,$rootScope,PostService)
+    function HomeController($scope,$rootScope,$location,PostService)
     {
     	//init() --- load all posts
     	$scope.getAllPosts = function(){
@@ -46,5 +46,10 @@
 
     		$scope.text = '';
     	}
+
+        //goTo user profile
+        $scope.goTo = function(username){
+            $location.url("/profile/"+username);
+        }
     }
 })();

@@ -16,6 +16,13 @@
                       loggedin: checkLoggedin
                   }
               })
+              .when('/profile/:username', {
+                  templateUrl: 'views/profile/otherProfileView.html',
+                  controller: 'OtherProfileCtrl',
+                  resolve: {
+                      loggedin: checkLoggedin
+                  }
+              })
               .when('/admin', {
                   templateUrl: 'views/admin/adminView.html',
                   controller: 'AdminController',
