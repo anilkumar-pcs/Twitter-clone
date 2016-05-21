@@ -56,6 +56,8 @@ module.exports = function(){
 		return PostModel.update({_id:postId},{$addToSet : {favorited_by : user}});		
 	}
 	function MarkUnFavorite(postId,user){
+		//console.log("user : "+user);
+		return PostModel.update({_id:postId},{$pull : {favorited_by : user._id}});
 	}
 
 }
