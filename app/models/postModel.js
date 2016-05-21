@@ -6,7 +6,8 @@ module.exports = function(){
 		{
 			created_by : String,
 			created_at  : {type: Date, default: Date.now},
-			text : String
+			text : String,
+			favorited_by : [{ type : mongoose.Schema.Types.ObjectId, ref: 'UserModel' }]
 		},
 		{
 			collection : "post"
@@ -20,7 +21,10 @@ module.exports = function(){
 		findPostsByUser : findPostsByUser,
 		createPost : createPost,
 		deletePost : deletePost,
-		updatePost : updatePost
+		updatePost : updatePost,
+		findFavoritedUsers : findFavoritedUsers,
+		MarkFavorite : MarkFavorite,
+		MarkUnFavorite : MarkUnFavorite
 	};
 
 	return api;
@@ -43,6 +47,15 @@ module.exports = function(){
 
 	function updatePost(postId,post){
 		return PostModel.update({_id:postId}, {$set:post});
+	}
+	function findFavoritedUsers(postId){
+		return PostModel.find({_id:postId}).select('favorited_by');
+	}
+	function MarkFavorite(postId,user){
+		//return PostModel.update({_id:postId},{$push : {favorited_by : user}},{upsert : true,new : true});
+		return PostModel.update({_id:postId},{$addToSet : {favorited_by : user}});		
+	}
+	function MarkUnFavorite(postId,user){
 	}
 
 }

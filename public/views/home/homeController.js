@@ -51,5 +51,30 @@
         $scope.goTo = function(username){
             $location.url("/profile/"+username);
         }
+
+        //favorite and unfavorite posts
+        $scope.MarkFavorite = function(postId,user){
+            PostService.MarkFavorite(postId,user)
+            .then(
+                function(post){
+                    $scope.getAllPosts();
+                },
+                function(err){
+                    $scope.error = err;
+                }
+            );
+        }
+
+        $scope.MarkUnFavorite = function(postId,user){
+            PostService.MarkUnFavorite(postId,user)
+            .then(
+                function(post){
+                    $scope.getAllPosts();
+                },
+                function(err){
+                    $scope.error = err;
+                }
+            );
+        }
     }
 })();

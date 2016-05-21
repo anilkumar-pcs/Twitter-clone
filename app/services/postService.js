@@ -12,6 +12,11 @@ module.exports = function(app){
 	app.get("/api/post", auth, findAllPosts);
 	app.get("/api/post/:username", auth, findPostsByUser);
 
+    //for favorite and unfavorite of posts
+    app.get("/api/post/favorite/:id", auth, findFavoritedUsers);
+    app.post("/api/post/favorite/:id", auth, MarkFavorite);
+    app.post("/api/post/unfavorite/:id", auth, MarkUnFavorite);
+
 	function authorized (req, res, next) {
         if (!req.isAuthenticated()) {
             res.send(401);
@@ -116,6 +121,50 @@ module.exports = function(app){
             }
         );
 
+    }
+
+    function findFavoritedUsers(req,res){
+        var postId = req.params.id;
+        postModel.findFavoritedUsers(postId)
+        .then(
+            function(users){
+                res.json(users);
+            },
+            function(err){
+                res.status(400).send(err);
+            }
+        );
+    }
+
+    function MarkFavorite(req,res){
+        var postId = req.params.id;
+        var user = req.user;
+        //console.log("postId : "+postId+" user : "+user.username);
+        postModel.MarkFavorite(postId,user)
+        .then(
+            function(){
+                res.status(200).send("OK");
+            },
+            function(err){
+                res.status(400).send(err);
+            }
+        );
+    }
+
+    function MarkUnFavorite(req,res){
+        var postId = req.params.id;
+        var user = req.user;
+        //console.log("postId : "+postId+" user : "+user);
+        //console.log("postId : "+postId+" username : "+user.username);
+        postModel.MarkUnFavorite(postId,user)
+        .then(
+            function(){
+                res.status(200).send("OK");
+            },
+            function(err){
+                res.status(400).send(err);
+            }
+        );
     }
 
 }

@@ -9,7 +9,10 @@
             findPostsByUser : findPostsByUser,
             createPost : createPost,
             deletePost : deletePost,
-            updatePost : updatePost
+            updatePost : updatePost,
+            findFavoritedUsers : findFavoritedUsers,
+            MarkFavorite : MarkFavorite,
+            MarkUnFavorite : MarkUnFavorite
         };
         
         return api;
@@ -32,6 +35,15 @@
 
         function updatePost(postId,post){
             return $http.put("/api/post"+postId,post);
+        }
+        function findFavoritedUsers(postId){
+            return $http.get("/api/post/favorite/"+postId);
+        }
+        function MarkFavorite(postId,user){
+            return $http.post("/api/post/favorite/"+postId,{user:user});
+        }
+        function MarkUnFavorite(postId,user){
+            return $http.post("/api/post/unfavorite/"+postId,{user:user});
         }
     }
 })();
